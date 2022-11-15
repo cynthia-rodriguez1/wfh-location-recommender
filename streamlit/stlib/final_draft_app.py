@@ -10,7 +10,7 @@ import user_input_converter
 import generate_rec
 
 
-icon = Image.open('/Users/cynthiarodriguez/Desktop/DSI-822/Projects/wfh-location-recommender/images/streamlit_app_logo.jpeg')
+icon = Image.open('/Users/cynthiarodriguez/Desktop/DSI-822/Projects/wfh-location-recommender/images/streamlit_logo.png')
 st.set_page_config(page_title='Remote Work Location Recommender', page_icon = icon)
 
 st.markdown("<style>.element-container{opacity:1 !important}</style>", unsafe_allow_html=True)
@@ -53,8 +53,8 @@ def main_page():
             max_temp = selected_weather_pref[1]
 
             # 4. Chain preference
-            chain_options = ('I only eat at Mom-n-Pop restaurants', 'I prefer non-chain restaurants', 'I like a combination of both', 'I would rather go somewhere that has a drive-thru', 'The faster the food the better')
             st.subheader("4. If you aren't eating at home, which of these best describes your meal preferences?")
+            chain_options = ('I only eat at Mom-n-Pop restaurants', 'I prefer non-chain restaurants', 'I like a combination of both', 'I would rather go somewhere that has a drive-thru', 'The faster the food the better')
             selected_chain_pref = st.radio('Chain pref', options = chain_options, index = 2, label_visibility = 'collapsed')
 
 
@@ -77,7 +77,7 @@ def main_page():
             misc_costs_count = len(selected_misc_costs)
 
             # 8. Monthly budget
-            st.subheader('8.  How much are you willing to spend on accomodations each month?')
+            st.subheader('8. How much are you willing to spend on accommodations each month?')
             selected_budget = st.number_input('Monthly budget range', min_value = 0, step = 1, label_visibility = 'collapsed')
 
 
