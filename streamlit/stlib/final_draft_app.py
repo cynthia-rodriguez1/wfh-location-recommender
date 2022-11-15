@@ -23,12 +23,15 @@ next_page = st.empty()
 
 rec_df = pd.read_csv('/Users/cynthiarodriguez/Desktop/DSI-822/Projects/wfh-location-recommender/streamlit/location_features_df.csv')
 
+
 def main_page():
 
+
     with next_page.container():
+        st.title('Remote Work Location Recommender')
         with st.form('my_form'):
             st.title('Where should you go next?')
-            image = Image.open('/Users/cynthiarodriguez/Desktop/DSI-822/Projects/wfh-location-recommender/images/location_images/New York City, NY.jpg')
+            image = Image.open('/Users/cynthiarodriguez/Desktop/DSI-822/Projects/wfh-location-recommender/streamlit/stlib/main_page.jpg')
             st.image(image)
 
             st.header("Let's answer a few questions.")
@@ -159,5 +162,6 @@ def main_page():
 
                     if st.button('Click here to try again') == True:
                         main_page()
+
 
 main_page()
