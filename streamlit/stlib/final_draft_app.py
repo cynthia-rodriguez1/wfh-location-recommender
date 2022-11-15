@@ -126,7 +126,7 @@ def main_page():
                     season_display_text = 'Average Temperature in ' + display_month
 
                     # Reading in our weather dataframe to pull temperatures from
-                    weather = pd.read_csv('/Users/cynthiarodriguez/Desktop/DSI-822/Projects/wfh-location-recommender/datasets/cleaned_data/weather_combined.csv')
+                    weather = pd.read_csv('streamlit/stlib/weather_combined.csv')
                     # Reformatting the location name to match our function output
                     weather['place'] = weather[['place', 'state']].apply(lambda x: ', '.join(x), axis=1)
                     # Creating an index to help us look up our location
@@ -144,7 +144,7 @@ def main_page():
                     col2.metric(season_display_text, expected_temp)
 
                     # This dataframe contains all of Airbnb's individual place IDs for each of our recommendation possibilities
-                    place_id_df = pd.read_csv('/Users/cynthiarodriguez/Desktop/DSI-822/Projects/wfh-location-recommender/datasets/airbnb_place_id.csv')
+                    place_id_df = pd.read_csv('streamlit/stlib/airbnb_place_id.csv')
                     place_id_indices = pd.Series(place_id_df.index, index = place_id_df['place'])
                     # Pulling the place ID from the above dataframe for the user's recommended location and appending to use in the Airbnb URL
                     final_rec_place_id = (place_id_df.iloc[(place_id_indices[final_rec])]['place_id']) + '&'
