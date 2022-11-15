@@ -101,7 +101,7 @@ def main_page():
 
 
 
-                    rec_image_display = Image.open('/Users/cynthiarodriguez/Desktop/DSI-822/Projects/wfh-location-recommender/images/location_images/' + str(final_rec) + '.jpg')
+                    rec_image_display = Image.open('streamlit/stlib/location_images' + str(final_rec) + '.jpg')
                     st.image(rec_image_display)
 
                     # Here we're grabbing the average temperature for the user's selected month(s) to display
