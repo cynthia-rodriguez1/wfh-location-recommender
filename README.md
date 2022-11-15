@@ -50,36 +50,36 @@ In order to build a system that could recommend a location based on user input, 
 # Exploratory Data Analysis
 Notebook can be viewed [here](./notebooks/02_eda.ipynb).
 
-The purpose of this notebook is to explore the various aspects in each of the datasets, helping us to hone in on the useful features that can be used in our functions and identify any patterns or inconsistencies that might cause problems when making recommendations. Following are summaries/examples of the explorations conducted:
+The purpose of this notebook is to explore the various aspects in each of the datasets, helping us to hone in on the useful features that can be used in our functions and identify any patterns or inconsistencies that might cause problems when making recommendations. Following are examples of the explorations conducted:
 
 **Key Findings**
 
 Which locations have the most expensive Airbnb listings?
-#![](visualizations/barh_most_exp_airbnb_prices.png)
+![](visualizations/barh_most_exp_airbnb_prices.png)
 
 Which locations have the least expensive Airbnb listings?
-#![](visualizations/barh_least_exp_airbnb_prices.png)
+![](visualizations/barh_least_exp_airbnb_prices.png)
 
 Which locations have the highest ratios of chain restaurants?
-#![](visualizations/barh_high_chain_ratio.png)
+![](visualizations/barh_high_chain_ratio.png)
 
 Which locations have the lowest ratios of chain restaurants?
-#![](visualizations/barh_low_chain_ratio.png)
+![](visualizations/barh_low_chain_ratio.png)
 
 What are the most common chains across all locations?
-#![](visualizations/barh_most_common_chains.png)
+![](visualizations/barh_most_common_chains.png)
 
 Are there more chains in locations where the grocery cost index is higher?
-#![](visualizations/scatter_chain_v_grocery_idx.png)
+![](visualizations/scatter_chain_v_grocery_idx.png)
 
 Which locations have the highest costs of living?
-#![](visualizations/barh_high_coli.png)
+![](visualizations/barh_high_coli.png)
 
 Which locations have the lowest costs of living?
-#![](visualizations/barh_low_coli.png)
+![](visualizations/barh_low_coli.png)
 
 Do we see a relationship between cost of living and political lean?
-#![](visualizations/scatter_coli_v_poli.png)
+# ![](visualizations/scatter_coli_v_poli.png)
 
 
 # Building Recommendation Functions
@@ -104,6 +104,8 @@ We selected the [user input conversion](./streamlit/stlib/user_input_converter.p
 
 # Conclusion and Next Steps
 
+**Conclusion**
+
 **Combining multiple datasets comes with challenges**
 
 Although we made sure to pull data from only reputable sources, a few of our datasets were given on a neighborhood scale, while others were on a city-level scale. This is not inherently an issue, but it does slightly diminish the interpretability of our findings and creates significantly more work in validating.
@@ -116,7 +118,7 @@ Due to the timeline and scope of the project, we weren't able to explore each of
 
 Regarding the problem statement,
 
-**NEXT STEPS**
+**Next Steps**
 
 1. Added locations
 - Ideally, we would be recommending various cities in every state and eventually, in international locations as well.
