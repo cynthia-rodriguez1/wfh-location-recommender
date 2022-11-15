@@ -23,7 +23,7 @@ def empty():
 
 next_page = st.empty()
 
-rec_df = pd.read_csv('/streamlit/location_features_df.csv')
+rec_df = pd.read_csv('streamlit/location_features_df.csv')
 
 
 def main_page():
@@ -33,7 +33,7 @@ def main_page():
         st.title('Remote Work Location Recommender')
         with st.form('my_form'):
             st.title('Where should you go next?')
-            image = Image.open('/streamlit/stlib/main_page.jpg')
+            image = Image.open('streamlit/stlib/main_page.jpg')
             st.image(image)
 
             st.header("Let's answer a few questions.")
