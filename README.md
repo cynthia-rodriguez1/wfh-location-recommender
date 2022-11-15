@@ -11,9 +11,13 @@
 
 # Executive Summary
 
-**Problem Statement**: TO DO
+**Problem Statement**:
 
-**Approach & Goal**: TO DO
+I work at ABC Marketing, Inc. and we just signed Airbnb as our latest client.
+
+They’ve asked us to build a web application that is easy to use and will drive repeat traffic to their website.
+
+Given that Forbes has projected 25% of all professional jobs in North America will be remote by the end of 2022, our goal is to create a ready-for-launch remote work location recommendation system that drives users directly to Airbnb’s page.
 
 
 # Data Dictionaries
@@ -79,7 +83,7 @@ Which locations have the lowest costs of living?
 ![](visualizations/barh_low_coli.png)
 
 Do we see a relationship between cost of living and political lean?
-# ![](visualizations/scatter_coli_v_poli.png)
+![](visualizations/scatter_coli_v_poli.png)
 
 
 # Building Recommendation Functions
@@ -104,7 +108,7 @@ We selected the [user input conversion](./streamlit/stlib/user_input_converter.p
 
 # Conclusion and Next Steps
 
-**Conclusion**
+**Conclusions**
 
 **Combining multiple datasets comes with challenges**
 
@@ -114,9 +118,11 @@ Although we made sure to pull data from only reputable sources, a few of our dat
 
 Due to the timeline and scope of the project, we weren't able to explore each of the datasets to the degree that we would have liked. Given that we were able to identify a probable regional trend in our initial EDA, it appears likely that there are more patterns that exist within the data and could be used in future versions of our function.
 
-**The recommendation functions work, but could be improved**
+**The application works, but could be improved**
 
-Regarding the problem statement,
+While we were able to build an application that provides location recommendations, we do feel that there are a few changes (detailed in Next Steps section below) that could be made to increase the likelihood of repeat traffic from users.
+
+In all, we would consider the problem statement to be mostly met, but with a few necessary revisions before presenting to the client and going to market.
 
 **Next Steps**
 
@@ -129,10 +135,13 @@ Regarding the problem statement,
 3. More data
 - The typical data science response of: more information needed. Specifically around local communities and activities (e.g. music scene if user wants to live somewhere that has multiple venues or more opportunities to see live music), nightlife, population diversity, etc. All of this would assist us in providing more tailored recommendations.
 
+**Web Application**
+
+To take a look at the finalized version of our web app for Airbnb, please click [here](https://cynthia-rodriguez1-wfh-loc-streamlitstlibfinal-draft-app-sngp0b.streamlit.app/).
 
 **Presentation**
 
-See [here](TO DO) for a brief, fairly non-technical presentation summarizing our data collection process, exploration, and final recommendation system.
+See [here](./addtl/wfh_recommender_pres.pdf) for a brief, fairly non-technical presentation summarizing our data collection process, exploration, and final recommendation system.
 
 **Works Cited**
 
