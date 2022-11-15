@@ -6,6 +6,8 @@ from PIL import Image
 from time import sleep
 import datetime
 from datetime import date
+from sklearn.preprocessing import MinMaxScaler
+from sklearn.metrics.pairwise import cosine_similarity
 import user_input_converter
 import generate_rec
 
