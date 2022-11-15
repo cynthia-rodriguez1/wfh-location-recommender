@@ -8,10 +8,6 @@ import datetime
 from datetime import date
 import user_input_converter
 import generate_rec
-import show_rec
-
-from sklearn.preprocessing import MinMaxScaler
-from sklearn.metrics.pairwise import cosine_similarity
 
 
 icon = Image.open('/Users/cynthiarodriguez/Desktop/DSI-822/Projects/wfh-location-recommender/images/streamlit_app_logo.jpeg')
@@ -94,9 +90,7 @@ def main_page():
 
             if st.form_submit_button('Submit') == True:
                 empty()
-                # with st.container():
                 with next_page.container():
-                    # show_rec.show_rec(rec_df)
                     final_rec = generate_rec.find_rec(rec_df)
                     st.header('You should go to: ' + str(final_rec) + '!')
 
