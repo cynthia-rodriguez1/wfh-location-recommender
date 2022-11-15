@@ -12,7 +12,7 @@ import user_input_converter
 import generate_rec
 
 
-icon = Image.open('/Users/cynthiarodriguez/Desktop/DSI-822/Projects/wfh-location-recommender/streamlit/stlib/streamlit_logo.png')
+icon = Image.open('streamlit/stlib/streamlit_logo.png')
 st.set_page_config(page_title='Remote Work Location Recommender', page_icon = icon)
 
 st.markdown("<style>.element-container{opacity:1 !important}</style>", unsafe_allow_html=True)
