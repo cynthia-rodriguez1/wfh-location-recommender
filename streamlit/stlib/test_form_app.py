@@ -14,7 +14,7 @@ from sklearn.preprocessing import MinMaxScaler
 from sklearn.metrics.pairwise import cosine_similarity
 
 
-icon = Image.open('/Users/cynthiarodriguez/Desktop/DSI-822/Projects/wfh-location-recommender/streamlit/images/us1.jpeg')
+icon = Image.open('/Users/cynthiarodriguez/Desktop/DSI-822/Projects/wfh-location-recommender/images/streamlit_app_logo.jpeg')
 st.set_page_config(page_title='Remote Work Location Recommender', page_icon = icon)
 
 st.markdown("<style>.element-container{opacity:1 !important}</style>", unsafe_allow_html=True)
@@ -27,34 +27,28 @@ next_page = st.empty()
 
 rec_df = pd.read_csv('/Users/cynthiarodriguez/Desktop/DSI-822/Projects/wfh-location-recommender/streamlit/location_features_df.csv')
 
-# place = 'New York City, NY'
-# st.button('Click here to select a new location')
-
-# with next_page.container():
-def main_page():
+with st.form('my_form'):
     st.title('Where should you go next?')
     image = Image.open('/Users/cynthiarodriguez/Desktop/DSI-822/Projects/wfh-location-recommender/images/location_images/New York City, NY.jpg')
     st.image(image)
 
     st.header("Let's answer a few questions.")
 
-# Button to return to home page
-# with st.sidebar:
-#     st.button('Click here to select a new location.')
+    # Button to return to home page
+    # with st.sidebar:
+    #     st.button('Click here to select a new location.')
 
     # 1. Trip dates
     st.subheader('1.  When would you plan on going?')
     trip_dates = st.date_input('Select your date range', value = (date.today(), datetime.date(2022, 11, 30)), max_value = datetime.date(2024, 12, 31))
     check_in = '&checkin=' + str(trip_dates[0]) + '&'
     check_out = 'checkout=' + str(trip_dates[1])
-    # global trip_dates, check_in, check_out
-    # st.write(str(trip_dates[0]), str(trip_dates[1]))
+    st.write(str(trip_dates[0]), str(trip_dates[1]))
 
     # 2. Number of guests
     st.subheader('2.  How many people would you be staying with?')
     total_guests = st.number_input('Enter the total amount of guests', min_value = 1, step = 1)
     num_guests = '&adults=' + str(total_guests)
-    # global num_guests
 
     # 3. Weather preference
     st.subheader('3.  What is your ideal temperature range?')
@@ -68,13 +62,13 @@ def main_page():
     chain_options = ('I only eat at Mom-n-Pop restaurants', 'I prefer non-chain restaurants', 'I like a combination of both', 'I would rather go somewhere that has a drive-thru', 'The faster the food the better')
     st.subheader("4. If you aren't eating at home, which of these best describes your meal preferences?")
     selected_chain_pref = st.radio('Chain pref', options = chain_options, index = 2, label_visibility = 'collapsed')
-    # st.write('Chain pref: ', selected_chain_pref)
+    st.write('Chain pref: ', selected_chain_pref)
 
     # 5. Walkability preference
     walk_importance_options = ('Not important at all', 'Not very important', 'Neutral', 'A little important', 'Extremely important')
     st.subheader('5.  How important is walkability?')
     selected_walk_pref = st.select_slider('Walkability', options = walk_importance_options, value = 'Neutral', label_visibility = 'collapsed')
-    # st.write('Importance: ', selected_walk_pref)
+    st.write('Importance: ', selected_walk_pref)
 
     # 6. Political lean preference
     st.subheader('6. Do you care about the political lean of the city you would be living in?')
@@ -94,33 +88,44 @@ def main_page():
     # 8. Monthly budget
     st.subheader('8.  How much are you willing to spend on accomodations each month?')
     selected_budget = st.number_input('Monthly budget range', min_value = 0, step = 1, label_visibility = 'collapsed')
-    # st.write('Budget: ', selected_budget)
+    st.write('Budget: ', selected_budget)
 
     user_input = [min_temp, max_temp, selected_chain_pref, selected_walk_pref, selected_pol_pref, misc_costs_count, selected_budget]
+# st.write(user_input)
+    submission = st.form_submit_button('Submit')
+    if submission == True:
 
-    return user_input, check_in, check_out, trip_dates, num_guests
-
-with next_page.container():
-    user_responses, check_in, check_out, trip_dates, num_guests = main_page()
-
-# st.cache(main_page())
 
 # New list of converted input data
-    new_list = st.cache(user_input_converter.wfh_input_converter(user_responses, rec_df))
+        new_list = user_input_converter.wfh_input_converter(user_input, rec_df)
+    # st.write(new_list)
+    # st.write(type(new_list))
+    # st.write(df.columns)
 
+    # Finding cosine similarities of new df
+    # Scaling all numeric columns
+    # feature_cols = df.columns[1:]
+    # sc = MinMaxScaler()
+    # scaled_df = sc.fit_transform(df[feature_cols])
+    #
+    # # Setting model and indices for reference
 
-if st.button('Submit') == True:
-    empty()
-    with next_page.container():
+    # cs_df = cosine_similarity(scaled_df)
+
+    # user_submit = st.button('Submit')
+    # st.write(user_submit)
+        # if st.button('Submit') == True:
+        #     empty()
+            # with next_page.container():
         # show_rec.show_rec(rec_df)
         final_rec = generate_rec.find_rec(rec_df)
         st.header('You should go to: ' + str(final_rec) + '!')
-
-
-
+                #
+                #
+                #
         rec_image_display = Image.open('/Users/cynthiarodriguez/Desktop/DSI-822/Projects/wfh-location-recommender/images/location_images/' + str(final_rec) + '.jpg')
         st.image(rec_image_display)
-
+                #
         # Here we're grabbing the average temperature for the user's selected month(s) to display
         # Finding the length of the trip
         trip_dates_diff = (trip_dates[1].month - trip_dates[0].month)
@@ -157,7 +162,7 @@ if st.button('Submit') == True:
 
         # Displaying using streamlit's metric display element
         col1, col2 = st.columns(2)
-        col1.metric('Average Price per Month', '${:,.0f}'.format(expected_monthly_price))
+        col1.metric('Average Airbnb Price per Month', '${:,.0f}'.format(expected_monthly_price))
         col2.metric(season_display_text, expected_temp)
 
         # This dataframe contains all of Airbnb's individual place IDs for each of our recommendation possibilities
@@ -178,3 +183,6 @@ if st.button('Submit') == True:
         # Generating the full link
         link = '[here.](https://www.airbnb.com/s/' + rec_split_list_city + '--' + rec_split_list_state + '--USA/homes?tab_id=home_tab&refinement_paths%5B%5D=%2Fhomes&flexible_trip_lengths%5B%5D=one_week&price_filter_input_type=0&price_filter_num_nights=5&query=' + pct_20 + '&date_picker_type=calendar&place_id=' + final_rec_place_id + check_in + check_out + num_guests + '&source=structured_search_input_header&search_type=autocomplete_click)'
         st.write('Check it out ', link, unsafe_allow_html = True)
+
+if st.button('Click here to try again') == True:
+    st.experimental_rerun()

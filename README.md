@@ -1,8 +1,8 @@
 # Remote Work Location Recommender
 
-**Table of Contents**
+### **Table of Contents**
 <br>[Executive Summary](#executive-summary)
-<br>[Data Dictionary](#data-dictionaries)
+<br>[Data Dictionaries](#data-dictionaries)
 <br>[Data Acquisition & Cleaning](#data-acquisition-and-cleaning) 
 <br>[EDA](#exploratory-data-analysis)
 <br>[Building Recommendation Functions](#building-recommendation-functions)
@@ -33,20 +33,20 @@ Notebook can be viewed [here](./notebooks/01_data_acq_clean.ipynb).
 
 In order to build a system that could recommend a location based on user input, we needed to compile data that coincided with the questions we believe we'd be asking of the user. Below are brief summaries of the datasets used, as well as the sources.
 
-Datasets:
-<br>Airbnb Data - 279k observations 
+#### **Datasets:**
+1. Airbnb Data - 279k observations 
 - 13 features for each Airbnb listing including neighborhood, price per night, and minimum nights required for booking, all downloaded from [Inside Airbnb](http://insideairbnb.com/get-the-data/).
 
-<br>Chain Restaurant Data - 155k observations 
+2. Chain Restaurant Data - 155k observations 
 - 13 features relating to each restaurant listed, including name, type of cuisine, urban area location, and whether the restaurant qualifies as a chain. Data provided courtesy of [Friendly Cities Lab](https://github.com/friendlycities-gatech/chainness).
 
-<br>Cost of Living Data - 33 observations 
+3. Cost of Living Data - 33 observations 
 - 16 features relating to various socioeconomic and political characteristics of each location. Data was pulled from [BestPlaces.net](https://www.bestplaces.net/) for each location and aggregated.
 
-<br>Weather Data - 33 observations 
-- Two separate datasets detailing monthly temperature and rainfall trends for each location, from [The National Centers for Environmental Information](https://www.ncei.noaa.gov/). Data was aggregated into one larger dataset for EDA usage.
+4. Weather Data - 33 observations 
+- Two separate datasets detailing monthly temperature and rainfall trends for each location, from [The National Centers for Environmental Information](https://www.ncei.noaa.gov/). Data was aggregated into one larger dataset for subsequent usage.
 
-<br>Walkability Data - 40k observations 
+5. Walkability Data - 40k observations 
 - 46 features for each census block including population demographics, auto and transit scores, and walkability from the [US Environmental Protection Agency](https://www.epa.gov/smartgrowth/smart-location-mapping#walkability).
 
 # Exploratory Data Analysis 
@@ -88,4 +88,5 @@ TO DO
 See [here](TO DO) for a brief, fairly non-technical presentation summarizing our data collection process, exploration, and final recommendation system.
 
 **Works Cited**
+
 Please see [here](TO DO) for an exhaustive list of resources used in this project.
