@@ -3,6 +3,5 @@ numpy
 scikit-learn
 streamlit
 Pillow
-time
 datetime
 re
