@@ -4,8 +4,8 @@ import re
 import streamlit as st
 from PIL import Image
 from time import sleep
-import datetime
-from datetime import date
+# import datetime
+from datetime import date, datetime
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.metrics.pairwise import cosine_similarity
 import user_input_converter
@@ -41,7 +41,10 @@ def main_page():
 
             # 1. Trip dates
             st.subheader('1.  When would you plan on going?')
-            trip_dates = st.date_input('Select your date range', value = (date.today(), datetime.date(2022, 11, 30)), max_value = datetime.date(2024, 12, 31))
+            t1 = date.today()
+            st.write(DateTime.DaysInMonth(year, month))
+            # st.write(datetime.createDate(new DateTime(year, month, 1).AddMonths(1).AddDays(-1)))
+            trip_dates = st.date_input('Select your date range', value = (t1, end_of_month), max_value = datetime.date(2024, 12, 31))
             check_in = '&checkin=' + str(trip_dates[0]) + '&'
             check_out = 'checkout=' + str(trip_dates[1])
 
