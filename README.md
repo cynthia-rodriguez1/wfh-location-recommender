@@ -137,7 +137,7 @@ In all, we would consider the problem statement to be mostly met, but with a few
 
 **Web Application**
 
-To take a look at the finalized version of our web app for Airbnb, please click [here](https://cynthia-rodriguez1-wfh-loc-streamlitstlibfinal-draft-app-sngp0b.streamlit.app/).
+To take a look at the finalized version of our web app for Airbnb, please click [here](https://cynthia-rodriguez1-wfh-loc-streamlitstlibfinal-draft-app-enq3bb.streamlit.app/).
 
 **Presentation**
 
