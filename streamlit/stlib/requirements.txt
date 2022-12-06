@@ -4,4 +4,5 @@ scikit-learn
 streamlit
 Pillow
 datetime
+calendar
 regex

@@ -6,6 +6,7 @@ from PIL import Image
 from time import sleep
 # import datetime
 from datetime import date, datetime
+from calendar import monthrange
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.metrics.pairwise import cosine_similarity
 import user_input_converter
@@ -42,8 +43,10 @@ def main_page():
             # 1. Trip dates
             st.subheader('1.  When would you plan on going?')
             t1 = date.today()
-            st.write(DateTime.DaysInMonth(year, month))
-            # st.write(datetime.createDate(new DateTime(year, month, 1).AddMonths(1).AddDays(-1)))
+            today_month = t1.month
+            today_year = t1.year
+            last_day_of_month = monthrange(today_year, today_month)[1]
+            end_of_month = datetime.date(today_year, today_month, last_day_of_month)
             trip_dates = st.date_input('Select your date range', value = (t1, end_of_month), max_value = datetime.date(2024, 12, 31))
             check_in = '&checkin=' + str(trip_dates[0]) + '&'
             check_out = 'checkout=' + str(trip_dates[1])
