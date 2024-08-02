@@ -96,7 +96,7 @@ def main_page():
 
 
             # New list of converted input data
-            new_list = st.cache(user_input_converter.wfh_input_converter(user_input, rec_df))
+            new_list = st.cache_data(user_input_converter.wfh_input_converter(user_input, rec_df))
 
 
             if st.form_submit_button('Submit') == True:
