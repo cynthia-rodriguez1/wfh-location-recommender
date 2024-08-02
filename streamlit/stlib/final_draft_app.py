@@ -12,9 +12,8 @@ from sklearn.metrics.pairwise import cosine_similarity
 import user_input_converter
 import generate_rec
 
-
 icon = Image.open('streamlit/stlib/streamlit_logo.png')
-st.set_page_config(page_title='Remote Work Location Recommender', page_icon = icon)
+st.set_page_config(page_title='Remote Work Location Recommender', page_icon=icon)
 
 st.markdown("<style>.element-container{opacity:1 !important}</style>", unsafe_allow_html=True)
 
@@ -26,10 +25,11 @@ next_page = st.empty()
 
 rec_df = pd.read_csv('streamlit/location_features_df.csv')
 
+@st.cache_data
+def get_converted_input(user_input, rec_df):
+    return user_input_converter.wfh_input_converter(user_input, rec_df)
 
 def main_page():
-
-
     with next_page.container():
         st.title('Remote Work Location Recommender')
         with st.form('my_form'):
@@ -39,7 +39,6 @@ def main_page():
 
             st.header("Let's answer a few questions.")
 
-
             # 1. Trip dates
             st.subheader('1.  When would you plan on going?')
             t1 = date.today()
@@ -47,65 +46,56 @@ def main_page():
             today_year = t1.year
             last_day_of_month = monthrange(today_year, today_month)[1]
             end_of_month = datetime.date(today_year, today_month, last_day_of_month)
-            trip_dates = st.date_input('Select your date range', value = (t1, end_of_month), max_value = datetime.date(2024, 12, 31))
+            trip_dates = st.date_input('Select your date range', value=(t1, end_of_month), max_value=datetime.date(2024, 12, 31))
             check_in = '&checkin=' + str(trip_dates[0]) + '&'
             check_out = 'checkout=' + str(trip_dates[1])
 
-
             # 2. Number of guests
             st.subheader('2.  How many people would you be staying with?')
-            total_guests = st.number_input('Enter the total amount of guests', min_value = 1, step = 1)
+            total_guests = st.number_input('Enter the total amount of guests', min_value=1, step=1)
             num_guests = '&adults=' + str(total_guests)
 
             # 3. Weather preference
             st.subheader('3.  What is your ideal temperature range?')
-            selected_weather_pref = st.slider('Weather preference', min_value = None, max_value = 120, value=(0, 25), label_visibility = 'collapsed')
+            selected_weather_pref = st.slider('Weather preference', min_value=0, max_value=120, value=(0, 25), label_visibility='collapsed')
             min_temp = selected_weather_pref[0]
             max_temp = selected_weather_pref[1]
 
             # 4. Chain preference
             st.subheader("4. If you aren't eating at home, which of these best describes your meal preferences?")
             chain_options = ('I only eat at Mom-n-Pop restaurants', 'I prefer non-chain restaurants', 'I like a combination of both', 'I would rather go somewhere that has a drive-thru', 'The faster the food the better')
-            selected_chain_pref = st.radio('Chain pref', options = chain_options, index = 2, label_visibility = 'collapsed')
-
+            selected_chain_pref = st.radio('Chain pref', options=chain_options, index=2, label_visibility='collapsed')
 
             # 5. Walkability preference
             walk_importance_options = ('Not important at all', 'Not very important', 'Neutral', 'A little important', 'Extremely important')
             st.subheader('5.  How important is walkability?')
-            selected_walk_pref = st.select_slider('Walkability', options = walk_importance_options, value = 'Neutral', label_visibility = 'collapsed')
-
+            selected_walk_pref = st.select_slider('Walkability', options=walk_importance_options, value='Neutral', label_visibility='collapsed')
 
             # 6. Political lean preference
             st.subheader('6. Do you care about the political lean of the city you would be living in?')
             pol_pref_options = ('Yes, strong left lean preferred', 'A little, moderate left lean preferred', 'No', 'A little, moderate right lean preferred', 'Yes, strong right lean preferred')
-            selected_pol_pref = st.selectbox('Pol pref', options = pol_pref_options, index = 2, label_visibility = 'collapsed')
-
+            selected_pol_pref = st.selectbox('Pol pref', options=pol_pref_options, index=2, label_visibility='collapsed')
 
             # 7. Miscellaneous costs
             misc_cost_options = ('Clothing', 'Concerts', 'Dining out', 'Entertainment', 'Bars/Clubs')
             st.subheader('7. Which of these are you likely to spend money on?')
-            selected_misc_costs = st.multiselect('Multiple selections allowed', options = misc_cost_options, label_visibility = 'visible')
+            selected_misc_costs = st.multiselect('Multiple selections allowed', options=misc_cost_options, label_visibility='visible')
             misc_costs_count = len(selected_misc_costs)
 
             # 8. Monthly budget
             st.subheader('8. How much are you willing to spend on accommodations each month?')
-            selected_budget = st.number_input('Monthly budget range', min_value = 0, step = 1, label_visibility = 'collapsed')
-
+            selected_budget = st.number_input('Monthly budget range', min_value=0, step=1, label_visibility='collapsed')
 
             user_input = [min_temp, max_temp, selected_chain_pref, selected_walk_pref, selected_pol_pref, misc_costs_count, selected_budget]
 
-
             # New list of converted input data
-            new_list = st.cache_data(user_input_converter.wfh_input_converter(user_input, rec_df))
+            new_list = get_converted_input(user_input, rec_df)
 
-
-            if st.form_submit_button('Submit') == True:
+            if st.form_submit_button('Submit'):
                 empty()
                 with next_page.container():
                     final_rec = generate_rec.find_rec(rec_df)
                     st.header('You should go to: ' + str(final_rec) + '!')
-
-
 
                     rec_image_display = Image.open('streamlit/stlib/location_images/' + str(final_rec) + '.jpg')
                     st.image(rec_image_display)
@@ -137,7 +127,7 @@ def main_page():
                     weather['place'] = weather[['place', 'state']].apply(lambda x: ', '.join(x), axis=1)
                     # Creating an index to help us look up our location
                     full_df_indices = pd.Series(rec_df.index, index=rec_df['place'])
-                    weather_indices = pd.Series(weather.index, index = weather['place'])
+                    weather_indices = pd.Series(weather.index, index=weather['place'])
                     weather_lookup_col = trip_season.lower() + '_avg_temp'
 
                     # Lastly, going into both dataframes using our defined indices to pull out the average monthly price and temperature for the user's recommended location
@@ -151,7 +141,7 @@ def main_page():
 
                     # This dataframe contains all of Airbnb's individual place IDs for each of our recommendation possibilities
                     place_id_df = pd.read_csv('streamlit/stlib/airbnb_place_id.csv')
-                    place_id_indices = pd.Series(place_id_df.index, index = place_id_df['place'])
+                    place_id_indices = pd.Series(place_id_df.index, index=place_id_df['place'])
                     # Pulling the place ID from the above dataframe for the user's recommended location and appending to use in the Airbnb URL
                     final_rec_place_id = (place_id_df.iloc[(place_id_indices[final_rec])]['place_id']) + '&'
 
@@ -166,10 +156,9 @@ def main_page():
 
                     # Generating the full link
                     link = '[here.](https://www.airbnb.com/s/' + rec_split_list_city + '--' + rec_split_list_state + '--USA/homes?tab_id=home_tab&refinement_paths%5B%5D=%2Fhomes&flexible_trip_lengths%5B%5D=one_week&price_filter_input_type=0&price_filter_num_nights=5&query=' + pct_20 + '&date_picker_type=calendar&place_id=' + final_rec_place_id + check_in + check_out + num_guests + '&source=structured_search_input_header&search_type=autocomplete_click)'
-                    st.write('Check it out ', link, unsafe_allow_html = True)
+                    st.write('Check it out ', link, unsafe_allow_html=True)
 
-                    if st.button('Click here to try again') == True:
+                    if st.button('Click here to try again'):
                         main_page()
-
 
 main_page()
