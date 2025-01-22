@@ -46,7 +46,7 @@ def main_page():
             today_year = t1.year
             last_day_of_month = monthrange(today_year, today_month)[1]
             end_of_month = datetime.date(today_year, today_month, last_day_of_month)
-            trip_dates = st.date_input('Select your date range', value=(t1, end_of_month), max_value=datetime.date(2024, 12, 31))
+            trip_dates = st.date_input('Select your date range', value=(t1, end_of_month), max_value=datetime.date(2025, 12, 31))
             check_in = '&checkin=' + str(trip_dates[0]) + '&'
             check_out = 'checkout=' + str(trip_dates[1])
 
